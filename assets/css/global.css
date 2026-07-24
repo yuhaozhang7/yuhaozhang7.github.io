@@ -88,6 +88,78 @@ div.lazy {
     font-size: 100%;
 }
 
+.badge-publication-abbr {
+    display: block;
+    background-color: #4f7db8;
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 0.45;
+    padding: 0.35rem 0.45rem;
+    text-decoration: none;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.2);
+}
+
+.publication-author-highlight {
+    color: #2f6fb0;
+}
+
+.publication-preview-shadow {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.2);
+}
+
+.publication-abbr-desktop {
+    margin-top: 0.25rem;
+}
+
+.publication-title {
+    font-size: 1.0rem;
+    line-height: 1.35;
+}
+
+.publication-meta,
+.publication-description,
+.publication-links {
+    font-size: 0.9rem;
+    line-height: 1.35;
+}
+
+.publication-links {
+    margin-top: 0.25rem;
+}
+
+.publication-link-button {
+    color: #212529;
+    border: 1px solid #212529;
+    background-color: transparent;
+    box-shadow: none;
+    margin: 0.15rem 0.25rem 0.1rem 0;
+    padding: 0.2rem 0.75rem;
+    font-size: 0.78rem;
+    line-height: 1.25;
+}
+
+.publication-link-button:hover,
+.publication-link-button:focus {
+    color: #2f6fb0;
+    border-color: #2f6fb0;
+    text-decoration: none;
+}
+
+.news-content {
+    font-size: 0.9rem;
+    line-height: 1.35;
+}
+
+.education-content {
+    font-size: 1.0rem;
+    line-height: 1.5;
+}
+
+.education-content .small {
+    font-size: 0.9rem;
+}
+
 .email-text {
     font-family: Source Code Pro, monospace;
 }
