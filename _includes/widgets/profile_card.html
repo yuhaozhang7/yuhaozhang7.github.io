@@ -8,11 +8,11 @@
                         {% if profile_portrait_url %}
                         <!-- When the screen is wider than md, float the portrait on the right -->
                         <div class="figure float-right ml-4 mb-4 d-none d-md-block">
-                            <img 
-                                src="{{ profile_portrait_url | relative_url }}"
-                                class="figure-img img-fluid img-thumbnail profile-portrait-shadow profile-portrait-toggle"
-                                style="height: 200px;"
-                                {% include widgets/profile_portrait_toggle_attrs.html %}>
+                            {% include widgets/profile_portrait_stack.html
+                                image_class="figure-img img-fluid img-thumbnail"
+                                image_style="height: 200px;"
+                                layer_class="img-thumbnail"
+                            %}
                         </div>
                         {% endif %}
 
@@ -22,12 +22,11 @@
                             </div>
                             {% if profile_portrait_url %}
                             <div class="ml-auto d-md-none">
-                                <img
-                                    src="{{ profile_portrait_url | relative_url }}"
-                                    class="rounded-circle profile-portrait-shadow profile-portrait-toggle"
-                                    style="height: 48px;"
-                                    alt="Portrait"
-                                    {% include widgets/profile_portrait_toggle_attrs.html %}>
+                                {% include widgets/profile_portrait_stack.html
+                                    image_class="rounded-circle"
+                                    image_style="height: 48px;"
+                                    layer_class="rounded-circle"
+                                %}
                             </div>
                             {% endif %}
                         </div>

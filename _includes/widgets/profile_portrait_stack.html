@@ -1,0 +1,25 @@
+{% assign profile_portrait_url = site.data.profile.portrait_urls | first | default: site.data.profile.portrait_url %}
+{% assign profile_second_portrait_url = profile_portrait_url %}
+{% for portrait in site.data.profile.portrait_urls %}
+    {% if forloop.index0 == 1 %}
+        {% assign profile_second_portrait_url = portrait %}
+    {% endif %}
+{% endfor %}
+<span class="profile-portrait-stack profile-portrait-toggle {{ include.stack_class }}" {% include widgets/profile_portrait_toggle_attrs.html %}>
+    <img
+        src="{{ profile_second_portrait_url | relative_url }}"
+        class="profile-portrait-underlay profile-portrait-underlay-middle {{ include.layer_class }}"
+        alt=""
+        aria-hidden="true">
+    <img
+        src="{{ profile_portrait_url | relative_url }}"
+        class="profile-portrait-image profile-portrait-shadow {{ include.image_class }}"
+        style="{{ include.image_style }}"
+        alt="Portrait">
+    <img
+        src="{{ profile_second_portrait_url | relative_url }}"
+        class="profile-portrait-next-image profile-portrait-shadow {{ include.image_class }}"
+        style="{{ include.image_style }}"
+        alt=""
+        aria-hidden="true">
+</span>

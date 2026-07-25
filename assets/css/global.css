@@ -146,17 +146,96 @@ div.lazy {
     text-decoration: none;
 }
 
-.profile-portrait-shadow {
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.22);
-}
-
-.profile-portrait-toggle {
+.profile-portrait-stack {
+    --profile-portrait-stack-step: 0.55rem;
     cursor: pointer;
-    transition: opacity 0.2s ease;
+    display: inline-block;
+    line-height: 0;
+    padding: 0 var(--profile-portrait-stack-step) var(--profile-portrait-stack-step) 0;
+    position: relative;
+    vertical-align: top;
 }
 
-.profile-portrait-toggle.is-switching {
+.profile-portrait-stack-mini {
+    max-width: 70%;
+}
+
+.profile-portrait-stack-mobile {
+    max-width: 35%;
+}
+
+.profile-portrait-stack-mini,
+.profile-portrait-stack-mobile {
+    width: 100%;
+}
+
+.profile-portrait-image,
+.profile-portrait-next-image {
+    display: block;
+    margin-bottom: 0;
+    object-fit: cover;
+}
+
+.profile-portrait-image {
+    position: relative;
+    transition: opacity 0.35s ease, transform 0.2s ease;
+    z-index: 3;
+}
+
+.profile-portrait-stack-mini .profile-portrait-image,
+.profile-portrait-stack-mobile .profile-portrait-image,
+.profile-portrait-stack-mini .profile-portrait-next-image,
+.profile-portrait-stack-mobile .profile-portrait-next-image {
+    width: 100%;
+}
+
+.profile-portrait-next-image {
+    left: 0;
     opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    transition: opacity 0.35s ease, transform 0.2s ease;
+    width: calc(100% - var(--profile-portrait-stack-step));
+    z-index: 4;
+}
+
+.profile-portrait-shadow,
+.profile-portrait-underlay {
+    box-shadow: 0 0.35rem 0.9rem rgba(0, 0, 0, 0.22);
+}
+
+.profile-portrait-underlay {
+    background-color: #fff;
+    box-sizing: border-box;
+    height: calc(100% - var(--profile-portrait-stack-step));
+    object-fit: cover;
+    pointer-events: none;
+    position: absolute;
+    width: calc(100% - var(--profile-portrait-stack-step));
+}
+
+.profile-portrait-underlay-middle {
+    filter: saturate(0.95) brightness(0.98);
+    left: var(--profile-portrait-stack-step);
+    top: var(--profile-portrait-stack-step);
+    transform: rotate(2deg);
+    z-index: 2;
+}
+
+.profile-portrait-stack:hover .profile-portrait-image,
+.profile-portrait-stack:focus .profile-portrait-image,
+.profile-portrait-stack:hover .profile-portrait-next-image,
+.profile-portrait-stack:focus .profile-portrait-next-image {
+    transform: translate(-0.08rem, -0.08rem) rotate(-1deg);
+}
+
+.profile-portrait-stack.is-switching .profile-portrait-image {
+    opacity: 0;
+}
+
+.profile-portrait-stack.is-switching .profile-portrait-next-image {
+    opacity: 1;
 }
 
 .news-content {

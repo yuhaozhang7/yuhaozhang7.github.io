@@ -41,6 +41,30 @@ $(function () {
             return anchor.href;
         };
 
+        var getProfilePortraitImage = function ($portrait) {
+            if ($portrait.is('img')) {
+                return $portrait;
+            }
+
+            return $portrait.find('.profile-portrait-image').first();
+        };
+
+        var getProfilePortraitNextImage = function ($portrait) {
+            if ($portrait.is('img')) {
+                return $();
+            }
+
+            return $portrait.find('.profile-portrait-next-image').first();
+        };
+
+        var updateProfilePortraitStack = function ($portrait, activeIndex) {
+            if ($portrait.is('img')) {
+                return;
+            }
+
+            $portrait.find('.profile-portrait-underlay-middle').attr('src', portraitSources[(activeIndex + 1) % portraitSources.length]);
+        };
+
         var normalizedPortraitSources = portraitSources.map(normalizeSrc);
 
         portraitSources.forEach(function (src) {
@@ -48,7 +72,7 @@ $(function () {
             image.src = src;
         });
 
-        var activePortraitIndex = normalizedPortraitSources.indexOf(normalizeSrc($profilePortraits.first().attr('src')));
+        var activePortraitIndex = normalizedPortraitSources.indexOf(normalizeSrc(getProfilePortraitImage($profilePortraits.first()).attr('src')));
         if (activePortraitIndex < 0) {
             activePortraitIndex = 0;
         }
@@ -65,34 +89,62 @@ $(function () {
             var nextSrc = portraitSources[activePortraitIndex];
             var normalizedNextSrc = normalizedPortraitSources[activePortraitIndex];
 
-            $profilePortraits.addClass('is-switching');
+            var pending = $profilePortraits.length;
 
-            window.setTimeout(function () {
-                var pending = $profilePortraits.length;
+            var startCrossfade = function () {
+                pending -= 1;
+                if (pending > 0) {
+                    return;
+                }
 
-                var finish = function () {
-                    pending -= 1;
-                    if (pending <= 0) {
-                        $profilePortraits.removeClass('is-switching');
-                        isSwitchingProfilePortrait = false;
-                    }
-                };
-
-                $profilePortraits.each(function () {
-                    if (normalizeSrc($(this).attr('src')) === normalizedNextSrc) {
-                        finish();
-                        return;
-                    }
-
-                    $(this).one('load error', finish);
-                    this.src = nextSrc;
-                });
+                $profilePortraits.addClass('is-switching');
 
                 window.setTimeout(function () {
+                    $profilePortraits.each(function () {
+                        var $portrait = $(this);
+                        var $portraitImage = getProfilePortraitImage($portrait);
+
+                        $portraitImage.attr('src', nextSrc);
+                        updateProfilePortraitStack($portrait, activePortraitIndex);
+                    });
+
                     $profilePortraits.removeClass('is-switching');
-                    isSwitchingProfilePortrait = false;
-                }, 700);
-            }, 180);
+
+                    window.setTimeout(function () {
+                        $profilePortraits.each(function () {
+                            var $portrait = $(this);
+                            getProfilePortraitNextImage($portrait).attr('src', portraitSources[(activePortraitIndex + 1) % portraitSources.length]);
+                        });
+
+                        isSwitchingProfilePortrait = false;
+                    }, 350);
+                }, 350);
+            };
+
+            $profilePortraits.each(function () {
+                var $portrait = $(this);
+                var $portraitImage = getProfilePortraitImage($portrait);
+                var $nextImage = getProfilePortraitNextImage($portrait);
+
+                if (!$nextImage.length) {
+                    $portrait.addClass('is-switching');
+                    window.setTimeout(function () {
+                        $portraitImage.attr('src', nextSrc);
+                        $portrait.removeClass('is-switching');
+                        startCrossfade();
+                    }, 180);
+                    return;
+                }
+
+                if (normalizeSrc($nextImage.attr('src')) === normalizedNextSrc && $nextImage[0].complete) {
+                    startCrossfade();
+                    return;
+                }
+
+                $nextImage.one('load error', startCrossfade);
+                $nextImage.attr('src', nextSrc);
+            });
+
         };
 
         $profilePortraits.on('click', switchProfilePortrait);
