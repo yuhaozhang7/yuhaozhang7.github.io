@@ -100,21 +100,21 @@ div.lazy {
     box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.2);
 }
 
-.publication-author-highlight {
-    color: #2f6fb0;
+.publication-abbr-desktop {
+    margin-top: 0.20rem;
 }
 
 .publication-preview-shadow {
     box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.2);
 }
 
-.publication-abbr-desktop {
-    margin-top: 0.25rem;
-}
-
 .publication-title {
     font-size: 1.0rem;
     line-height: 1.35;
+}
+
+.publication-author-highlight {
+    color: #2f6fb0;
 }
 
 .publication-meta,
@@ -144,6 +144,19 @@ div.lazy {
     color: #2f6fb0;
     border-color: #2f6fb0;
     text-decoration: none;
+}
+
+.profile-portrait-shadow {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.22);
+}
+
+.profile-portrait-toggle {
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.profile-portrait-toggle.is-switching {
+    opacity: 0;
 }
 
 .news-content {

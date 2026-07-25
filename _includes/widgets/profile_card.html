@@ -1,19 +1,18 @@
+{% assign profile_portrait_url = site.data.profile.portrait_urls | first | default: site.data.profile.portrait_url %}
 <div class="row">
     <div class="col">
         <div class="card border-0 shadow-sm bg-white">
             <div class="card-body p-5">
                 <div class="row">
                     <div class="col">
-                        {% if site.data.profile.portrait_url %}
+                        {% if profile_portrait_url %}
                         <!-- When the screen is wider than md, float the portrait on the right -->
                         <div class="figure float-right ml-4 mb-4 d-none d-md-block">
                             <img 
-                                src="{{ site.data.profile.portrait_url | relative_url }}" 
-                                class="figure-img img-fluid img-thumbnail" 
+                                src="{{ profile_portrait_url | relative_url }}"
+                                class="figure-img img-fluid img-thumbnail profile-portrait-shadow profile-portrait-toggle"
                                 style="height: 200px;"
-                                data-toggle="tooltip" 
-                                data-placement="top" 
-                                title="{{ site.data.profile.portrait_caption }}">
+                                {% include widgets/profile_portrait_toggle_attrs.html %}>
                         </div>
                         {% endif %}
 
@@ -21,11 +20,14 @@
                             <div class="h1 font-weight-normal">
                                 {{ site.data.profile.primary_name }} <small>{{ site.data.profile.secondary_name }}</small>
                             </div>
-                            {% if site.data.profile.portrait_url %}
+                            {% if profile_portrait_url %}
                             <div class="ml-auto d-md-none">
-                                <a target="_blank" href="{{ site.data.profile.portrait_url | relative_url }}">
-                                    <img src="{{ site.data.profile.portrait_url | relative_url }}" class="rounded-circle" style="height: 48px;" alt="Portrait">
-                                </a>
+                                <img
+                                    src="{{ profile_portrait_url | relative_url }}"
+                                    class="rounded-circle profile-portrait-shadow profile-portrait-toggle"
+                                    style="height: 48px;"
+                                    alt="Portrait"
+                                    {% include widgets/profile_portrait_toggle_attrs.html %}>
                             </div>
                             {% endif %}
                         </div>

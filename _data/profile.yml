@@ -43,7 +43,10 @@ short_bio: >-
     <a href="https://www.linkedin.com/in/mihaibujanca/" target="_blank">Mihai Bujanca</a>.
   </p>
 
-portrait_url: /assets/images/photos/portrait_2.jpg
+portrait_urls:
+- /assets/images/photos/portrait_1.jpg
+- /assets/images/photos/portrait_2.jpg
+- /assets/images/photos/portrait_4.jpg
 portrait_caption: >-
   Yuhao Zhang
 

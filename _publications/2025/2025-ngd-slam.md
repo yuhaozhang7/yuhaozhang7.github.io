@@ -1,6 +1,6 @@
 ---
 title: "NGD-SLAM: Towards Real-Time Dynamic SLAM without GPU"
-date: 2025-01-01 00:02:00 +0000
+date: 2025-01-01 00:01:00 +0000
 selected: true
 abbr: "IROS"
 pub: "IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)"
