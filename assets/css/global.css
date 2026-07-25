@@ -200,6 +200,11 @@ div.lazy {
     z-index: 4;
 }
 
+.profile-portrait-stack.is-resetting .profile-portrait-image,
+.profile-portrait-stack.is-resetting .profile-portrait-next-image {
+    transition: none;
+}
+
 .profile-portrait-shadow,
 .profile-portrait-underlay {
     box-shadow: 0 0.35rem 0.9rem rgba(0, 0, 0, 0.22);
@@ -228,10 +233,6 @@ div.lazy {
 .profile-portrait-stack:hover .profile-portrait-next-image,
 .profile-portrait-stack:focus .profile-portrait-next-image {
     transform: translate(-0.08rem, -0.08rem) rotate(-1deg);
-}
-
-.profile-portrait-stack.is-switching .profile-portrait-image {
-    opacity: 0;
 }
 
 .profile-portrait-stack.is-switching .profile-portrait-next-image {

@@ -78,6 +78,8 @@ $(function () {
         }
 
         var isSwitchingProfilePortrait = false;
+        var profilePortraitTransitionTime = 300;
+        var profilePortraitHoldTime = 200;
 
         var switchProfilePortrait = function () {
             if (isSwitchingProfilePortrait || portraitSources.length < 2) {
@@ -108,17 +110,23 @@ $(function () {
                         updateProfilePortraitStack($portrait, activePortraitIndex);
                     });
 
-                    $profilePortraits.removeClass('is-switching');
-
                     window.setTimeout(function () {
-                        $profilePortraits.each(function () {
-                            var $portrait = $(this);
-                            getProfilePortraitNextImage($portrait).attr('src', portraitSources[(activePortraitIndex + 1) % portraitSources.length]);
-                        });
+                        $profilePortraits.addClass('is-resetting');
+                        $profilePortraits.removeClass('is-switching');
 
-                        isSwitchingProfilePortrait = false;
-                    }, 350);
-                }, 350);
+                        window.requestAnimationFrame(function () {
+                            $profilePortraits.each(function () {
+                                var $portrait = $(this);
+                                getProfilePortraitNextImage($portrait).attr('src', portraitSources[(activePortraitIndex + 1) % portraitSources.length]);
+                            });
+
+                            window.requestAnimationFrame(function () {
+                                $profilePortraits.removeClass('is-resetting');
+                                isSwitchingProfilePortrait = false;
+                            });
+                        });
+                    }, profilePortraitHoldTime);
+                }, profilePortraitTransitionTime);
             };
 
             $profilePortraits.each(function () {
@@ -132,7 +140,7 @@ $(function () {
                         $portraitImage.attr('src', nextSrc);
                         $portrait.removeClass('is-switching');
                         startCrossfade();
-                    }, 180);
+                    }, profilePortraitTransitionTime);
                     return;
                 }
 
