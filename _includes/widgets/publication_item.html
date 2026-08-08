@@ -19,11 +19,17 @@
             
             <p class="publication-links pb-0 mb-0 lh-125 abstract-links">
                 {% for link in item.links %}
+                {% assign link_url = link[1] %}
+                {% assign link_target = '_blank' %}
                 {% if link[1].url %}
-                <a class="publication-link-button btn btn-sm" target="{{ link[1]['target'] }}" href="{{ link[1]['url'] }}" role="button">{{ link[0] }}</a>
-                {% else %}
-                <a class="publication-link-button btn btn-sm" target="_blank" href="{{ link[1] }}" role="button">{{ link[0] }}</a>
+                    {% assign link_url = link[1]['url'] %}
+                    {% assign link_target = link[1]['target'] | default: '_blank' %}
                 {% endif %}
+                {% assign has_github_stars = false %}
+                {% if link[0] == 'Code' and link_url contains 'github.com' %}
+                    {% assign has_github_stars = true %}
+                {% endif %}
+                <a class="publication-link-button btn btn-sm" target="{{ link_target }}" href="{{ link_url }}" role="button">{{ link[0] }}</a>{% if has_github_stars %}<span class="github-stars-badge" data-github-repo-stars data-github-repo-url="{{ link_url }}" aria-label="GitHub stars"></span>{% endif %}
                 {% endfor %}
             </p>
 
@@ -46,11 +52,17 @@
                 
                 <p class="publication-links pb-0 mb-0 lh-125 abstract-links">
                     {% for link in item.links %}
+                    {% assign link_url = link[1] %}
+                    {% assign link_target = '_blank' %}
                     {% if link[1].url %}
-                    <a class="publication-link-button btn btn-sm" target="{{ link[1]['target'] }}" href="{{ link[1]['url'] }}" role="button">{{ link[0] }}</a>
-                    {% else %}
-                    <a class="publication-link-button btn btn-sm" target="_blank" href="{{ link[1] }}" role="button">{{ link[0] }}</a>
+                        {% assign link_url = link[1]['url'] %}
+                        {% assign link_target = link[1]['target'] | default: '_blank' %}
                     {% endif %}
+                    {% assign has_github_stars = false %}
+                    {% if link[0] == 'Code' and link_url contains 'github.com' %}
+                        {% assign has_github_stars = true %}
+                    {% endif %}
+                    <a class="publication-link-button btn btn-sm" target="{{ link_target }}" href="{{ link_url }}" role="button">{{ link[0] }}</a>{% if has_github_stars %}<span class="github-stars-badge" data-github-repo-stars data-github-repo-url="{{ link_url }}" aria-label="GitHub stars"></span>{% endif %}
                     {% endfor %}
                 </p>
             </div>
