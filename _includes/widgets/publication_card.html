@@ -1,10 +1,54 @@
 {% assign publications = include.publications %}
-<div class="my-3 p-0 bg-white shadow-sm rounded-xl">
-    <h6 class="border-bottom border-gray p-3 mb-0">
-        {% if include.title %}{{ include.title }}{% else %}<i class="fas fa-star"></i> Selected Recent Publications{% endif %} 
+{% assign primary_author = site.data.profile.primary_name | strip %}
+{% assign first_count = 0 %}
+{% assign co_first_count = 0 %}
+{% for item in publications %}
+    {% assign publication_role = "other" %}
+    {% assign first_author = item.authors | first | strip %}
+    {% assign normalized_first_author = first_author | replace: "#*", "" | replace: "*#", "" | replace: "*", "" | replace: "#", "" | strip %}
+    {% for author in item.authors %}
+        {% assign author_text = author | strip %}
+        {% assign normalized_author = author_text | replace: "#*", "" | replace: "*#", "" | replace: "*", "" | replace: "#", "" | strip %}
+        {% if normalized_author == primary_author and author_text contains "*" %}
+            {% assign publication_role = "co-first" %}
+        {% endif %}
+    {% endfor %}
+    {% if publication_role == "co-first" %}
+        {% assign co_first_count = co_first_count | plus: 1 %}
+    {% elsif normalized_first_author == primary_author %}
+        {% assign publication_role = "first" %}
+        {% assign first_count = first_count | plus: 1 %}
+    {% endif %}
+{% endfor %}
+<div class="publication-card my-3 p-0 bg-white shadow-sm rounded-xl" data-publication-filter-card>
+    <h6 class="publication-card-header border-bottom border-gray p-3 mb-0">
+        <span>{% if include.title %}{{ include.title }}{% else %}<i class="fas fa-star"></i> Selected Recent Publications{% endif %}</span>
+        <span class="publication-author-filters" aria-label="Publication author filters">
+            <label class="publication-author-filter mb-0">
+                <input type="checkbox" data-publication-author-filter="first" checked>
+                <span>First ({{ first_count }})</span>
+            </label>
+            <label class="publication-author-filter mb-0">
+                <input type="checkbox" data-publication-author-filter="co-first" checked>
+                <span>Co-First ({{ co_first_count }})</span>
+            </label>
+        </span>
     </h6>
     {% for item in publications limit:include.limit %}
-        {% include widgets/publication_item.html item=item first=false last=false %}    
+        {% assign publication_role = "other" %}
+        {% assign first_author = item.authors | first | strip %}
+        {% assign normalized_first_author = first_author | replace: "#*", "" | replace: "*#", "" | replace: "*", "" | replace: "#", "" | strip %}
+        {% for author in item.authors %}
+            {% assign author_text = author | strip %}
+            {% assign normalized_author = author_text | replace: "#*", "" | replace: "*#", "" | replace: "*", "" | replace: "#", "" | strip %}
+            {% if normalized_author == primary_author and author_text contains "*" %}
+                {% assign publication_role = "co-first" %}
+            {% endif %}
+        {% endfor %}
+        {% if publication_role != "co-first" and normalized_first_author == primary_author %}
+            {% assign publication_role = "first" %}
+        {% endif %}
+        {% include widgets/publication_item.html item=item first=false last=false author_role=publication_role %}    
     {% endfor %}
     <h6 class="d-block p-3 mt-0 text-right">
         <a href="{{ 'publications' | relative_url }}">All publications <i class="fas fa-angle-double-right"></i></a>

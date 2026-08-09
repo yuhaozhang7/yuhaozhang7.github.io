@@ -21,10 +21,46 @@ $(function () {
         }
     }
 
-    $('img.lazy, div.lazy:not(.always-load)').Lazy({visibleOnly: true, ...lazyLoadOptions});
-    $('div.lazy.always-load').Lazy({visibleOnly: false, ...lazyLoadOptions});
+    var updatePublicationFilters = function ($card) {
+        var showFirst = $card.find('[data-publication-author-filter="first"]').prop('checked');
+        var showCoFirst = $card.find('[data-publication-author-filter="co-first"]').prop('checked');
+        var hasActiveAuthorFilter = showFirst || showCoFirst;
 
-    $('[data-toggle="tooltip"]').tooltip()
+        $card.find('[data-publication-author-role]').each(function () {
+            var $publication = $(this);
+            var role = $publication.data('publication-author-role');
+            var isVisible = true;
+
+            if (!hasActiveAuthorFilter) {
+                isVisible = true;
+            } else if (role === 'first') {
+                isVisible = showFirst;
+            } else if (role === 'co-first') {
+                isVisible = showCoFirst;
+            } else {
+                isVisible = false;
+            }
+
+            $publication.toggleClass('is-publication-filter-hidden', !isVisible);
+        });
+    };
+
+    $('[data-publication-filter-card]').each(function () {
+        updatePublicationFilters($(this));
+    });
+
+    $('[data-publication-author-filter]').on('change', function () {
+        updatePublicationFilters($(this).closest('[data-publication-filter-card]'));
+    });
+
+    if ($.fn.Lazy) {
+        $('img.lazy, div.lazy:not(.always-load)').Lazy({visibleOnly: true, ...lazyLoadOptions});
+        $('div.lazy.always-load').Lazy({visibleOnly: false, ...lazyLoadOptions});
+    }
+
+    if ($.fn.tooltip) {
+        $('[data-toggle="tooltip"]').tooltip();
+    }
 
     var $profilePortraits = $('.profile-portrait-toggle');
     if ($profilePortraits.length) {

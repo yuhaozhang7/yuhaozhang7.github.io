@@ -108,6 +108,41 @@ div.lazy {
     box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.2);
 }
 
+.publication-card-header {
+    align-items: center;
+    display: flex;
+    gap: 0.75rem;
+    justify-content: space-between;
+}
+
+.publication-author-filters {
+    align-items: center;
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+}
+
+.publication-author-filter {
+    align-items: center;
+    color: #495057;
+    cursor: pointer;
+    display: inline-flex;
+    font-size: 0.82rem;
+    font-weight: 700;
+    gap: 0.25rem;
+    line-height: 1.2;
+    white-space: nowrap;
+}
+
+.publication-author-filter input {
+    cursor: pointer;
+    margin: 0;
+}
+
+.publication-item.is-publication-filter-hidden {
+    display: none !important;
+}
+
 .publication-title {
     font-size: 1.0rem;
     line-height: 1.35;
