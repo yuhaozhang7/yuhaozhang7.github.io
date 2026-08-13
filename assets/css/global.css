@@ -148,8 +148,16 @@ div.lazy {
     line-height: 1.35;
 }
 
+.publication-title-gap {
+    margin-bottom: 0.1rem;
+}
+
 .publication-author-highlight {
     color: #2f6fb0;
+}
+
+.publication-author-note {
+    padding: 0.05rem 0.12rem;
 }
 
 .publication-meta,
