@@ -14,7 +14,7 @@ authors:
   - Frank Dellaert
   - Maurice Fallon
 links:
-  Paper: https://arxiv.org/abs/2606.00307v1
+  Paper: https://arxiv.org/abs/2606.00307
   Video: https://www.bilibili.com/video/BV1EGVz6yESn
   Code: https://github.com/ori-drs/ScaRF-SLAM
 ---
