@@ -13,7 +13,7 @@ authors:
   - Mihai Bujanca
   - Mikel Luján
 links:
-  Paper: https://ieeexplore.ieee.org/abstract/document/11246202
+  Paper: https://ieeexplore.ieee.org/document/11246202
   Video: https://www.bilibili.com/video/BV1XKT5eaEsT/
   Code: https://github.com/yuhaozhang7/NGD-SLAM
 ---

@@ -7,7 +7,7 @@ pub: "arXiv preprint"
 pub_date: "2026"
 # abstract: >-
 #   A 360 visual-inertial benchmark dataset with floor-plan priors for evaluating SLAM and localization.
-cover: /assets/images/publications/hilti.jpg
+cover: /assets/images/publications/hilti.gif
 authors:
   - Samuele Centanni*
   - Yuhao Zhang*
