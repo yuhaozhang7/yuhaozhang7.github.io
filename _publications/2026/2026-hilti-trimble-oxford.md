@@ -2,8 +2,8 @@
 title: "Hilti-Trimble-Oxford Dataset: 360 Visual-Inertial Benchmark with Floor Plan Priors for SLAM and Localization"
 date: 2026-01-01 00:01:00 +0000
 selected: true
-abbr: "arXiv"
-pub: "arXiv preprint"
+abbr: "RA-L"
+pub: "IEEE Robotics and Automation Letters (RA-L)"
 pub_date: "2026"
 # abstract: >-
 #   A 360 visual-inertial benchmark dataset with floor-plan priors for evaluating SLAM and localization.
